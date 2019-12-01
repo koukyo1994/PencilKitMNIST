@@ -10,12 +10,25 @@ import UIKit
 import PencilKit
 
 class ViewController: UIViewController {
-
+    
+    var canvasView: PKCanvasView?
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var resultImageView: UIImageView!
+    
+    static private let trainedImageSize = CGSize(width: 28, height: 28)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let canvas = PKCanvasView(frame: view.frame)
+        
+        let canvas = PKCanvasView(frame: imageView.frame)
+        canvas.backgroundColor = .black
+
         view.addSubview(canvas)
-        canvas.tool = PKInkingTool(.pen, color: .black, width: 30)
+        canvas.tool = PKInkingTool(.pen, color: .white, width: 20)
+        
+        self.canvasView = canvas
         
         if let window = UIApplication.shared.windows.first {
             if let toolPicker = PKToolPicker.shared(for: window) {
@@ -24,9 +37,47 @@ class ViewController: UIViewController {
                 canvas.becomeFirstResponder()
             }
         }
+        
+        textLabel.text = ""
+        view.addSubview(resultImageView)
     }
-
+    
+    @IBAction func convertViewIntoImageAndDisplay(_ sender: Any) {
+        var image = preprocessImage()
+        image = image.resize(newSize: resultImageView.frame.size)!
+        
+        DispatchQueue.main.async {
+            self.resultImageView.image = image
+        }
+    }
     
     
+    // ML Detection
+    func preprocessImage() -> UIImage {
+        var image = canvasView!.drawing.image(
+            from: canvasView!.drawing.bounds,
+            scale: 10.0)
+        
+        if let newImage = UIImage(
+            color: .black,
+            size: CGSize(
+                width: imageView.frame.width,
+                height: imageView.frame.height
+                )
+            ) {
+                if let overlayedImage = newImage.image(
+                    byDrawingImage: image,
+                    inRect: CGRect(
+                        x: imageView.center.x,
+                        y: imageView.center.y,
+                        width: imageView.frame.width,
+                        height: imageView.frame.width
+                    )
+                ) {
+                    image = overlayedImage
+            }
+        }
+        
+        return image
+    }
 }
-
