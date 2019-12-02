@@ -80,8 +80,8 @@ class ViewController: UIViewController {
     }
     
     func executePrediction(image: UIImage) {
-        if let resizedImage = image.resize(newSize: Self.trainedImageSize), let array = resizedImage.toMLMultiArray(){
-            guard let result = try? MNIST().prediction(image: array) else {
+        if let resizedImage = image.resize(newSize: Self.trainedImageSize), let pixelBuffer = resizedImage.toCVPixelBuffer(){
+            guard let result = try? MNIST().prediction(image: pixelBuffer) else {
                 print("error in image")
                 return
             }

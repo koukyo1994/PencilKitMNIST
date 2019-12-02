@@ -78,6 +78,32 @@ extension UIImage {
         return array
     }
     
+    func toCVPixelBuffer() -> CVPixelBuffer? {
+        var pixelBuffer: CVPixelBuffer? = nil
+        
+        let attr = [
+            kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
+            kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue
+        ] as CFDictionary
+        
+        let width = Int(self.size.width)
+        let height = Int(self.size.height)
+        
+        CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_OneComponent8, attr, &pixelBuffer)
+        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+        let bitmapContext = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer!), width: width, height: height, bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: colorSpace, bitmapInfo: 0)!
+        
+        guard let cgImage = self.cgImage else {
+            return nil
+        }
+        
+        bitmapContext.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+        
+        return pixelBuffer
+    }
+    
 }
 
 
