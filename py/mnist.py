@@ -31,7 +31,6 @@ def get_model() -> ks.Sequential:
     model.add(ks.layers.MaxPooling2D(pool_size=(2, 2)))
     model.add(ks.layers.Dropout(0.25))
     model.add(ks.layers.Flatten())
-    model.add(ks.layers.BatchNormalization())
     model.add(ks.layers.Dense(64, activation="relu"))
     model.add(ks.layers.Dropout(0.3))
     model.add(ks.layers.Dense(10, activation="softmax"))
