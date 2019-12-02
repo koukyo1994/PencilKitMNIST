@@ -39,6 +39,15 @@ class ViewController: UIViewController {
         }
         
         textLabel.text = ""
+
+    }
+    
+    @IBAction func predict(_ sender: Any) {
+        let image = preprocessImage()
+        
+        DispatchQueue.main.async {
+            self.executePrediction(image: image)
+        }
     }
     
     // ML Detection
@@ -71,13 +80,23 @@ class ViewController: UIViewController {
     }
     
     func executePrediction(image: UIImage) {
-        if let resizedImage = image.resize(newSize: Self.trainedImageSize), let pixelBuffer = resizedImage.toCVPixelBuffer() {
-            guard let result = try? MNIST().prediction(image: pixelBuffer) else {
+        if let resizedImage = image.resize(newSize: Self.trainedImageSize), let array = resizedImage.toMLMultiArray(){
+            guard let result = try? MNIST().prediction(image: array) else {
                 print("error in image")
                 return
             }
             
-            self.textLabel.text = "Predicted: \(result.output)"
+            var mostProbable: String = ""
+            var highestProbability: Double = 0.0
+            
+            for klass in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] {
+                if result.output[klass]! > highestProbability {
+                    highestProbability = result.output[klass]!
+                    mostProbable = klass
+                }
+            }
+            print(result.output)
+            self.textLabel.text = "Predicted: \(mostProbable), Probability: \(String(format: "%.4f", highestProbability))"
         }
     }
     

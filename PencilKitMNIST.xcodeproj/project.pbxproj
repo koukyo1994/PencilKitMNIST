@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC0547F923956CE700F5501F /* MNIST.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EC0547F823956CE700F5501F /* MNIST.mlmodel */; };
 		EC1E451723942A4E009CB1FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1E451623942A4E009CB1FF /* AppDelegate.swift */; };
 		EC1E451923942A4E009CB1FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1E451823942A4E009CB1FF /* SceneDelegate.swift */; };
 		EC1E451B23942A4E009CB1FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1E451A23942A4E009CB1FF /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC0547F823956CE700F5501F /* MNIST.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MNIST.mlmodel; sourceTree = "<group>"; };
 		EC1E451323942A4E009CB1FF /* PencilKitMNIST.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PencilKitMNIST.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC1E451623942A4E009CB1FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC1E451823942A4E009CB1FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				EC1E451C23942A4E009CB1FF /* Main.storyboard */,
 				EC1E452A23943146009CB1FF /* UIImage+Extension.swift */,
 				EC1E451F23942A4F009CB1FF /* Assets.xcassets */,
+				EC0547F823956CE700F5501F /* MNIST.mlmodel */,
 				EC1E452123942A4F009CB1FF /* LaunchScreen.storyboard */,
 				EC1E452423942A4F009CB1FF /* Info.plist */,
 			);
@@ -144,6 +147,7 @@
 				EC1E451B23942A4E009CB1FF /* ViewController.swift in Sources */,
 				EC1E451723942A4E009CB1FF /* AppDelegate.swift in Sources */,
 				EC1E451923942A4E009CB1FF /* SceneDelegate.swift in Sources */,
+				EC0547F923956CE700F5501F /* MNIST.mlmodel in Sources */,
 				EC1E452B23943146009CB1FF /* UIImage+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

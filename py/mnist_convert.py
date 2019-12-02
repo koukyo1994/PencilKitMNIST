@@ -20,13 +20,11 @@ if __name__ == "__main__":
 
     output_name = OUTPUT_PATH / args.name
 
-    class_labels = [str(i) for i in range(10)]
-
     mlmodel = coremltools.converters.keras.convert(
         args.artifact,
         input_names="image",
+        image_input_names="image",
         output_names="output",
-        class_labels=class_labels,
         image_scale=SCALE)
     mlmodel.author = "Hidehisa Arai"
     mlmodel.license = "MIT"

@@ -21,7 +21,7 @@
                                     <constraint firstAttribute="height" constant="812" id="CMs-W4-Rff"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lL-ji-Z6a">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lL-ji-Z6a">
                                 <rect key="frame" x="20" y="55" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -30,14 +30,20 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJY-vV-8SS">
                                 <rect key="frame" x="339" y="50" width="55" height="30"/>
                                 <state key="normal" title="Convert"/>
+                                <connections>
+                                    <action selector="predict:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qsi-gj-omf"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="4lL-ji-Z6a" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="11" id="3OG-hk-i55"/>
                             <constraint firstItem="mJY-vV-8SS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="6" id="5Pg-z0-hBV"/>
+                            <constraint firstItem="tcu-4d-QV0" firstAttribute="top" secondItem="mJY-vV-8SS" secondAttribute="bottom" constant="4" id="6rf-7X-K0e"/>
                             <constraint firstItem="tcu-4d-QV0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TIW-4P-ZOl"/>
                             <constraint firstItem="mJY-vV-8SS" firstAttribute="centerY" secondItem="4lL-ji-Z6a" secondAttribute="centerY" id="bsM-lU-0Lx"/>
                             <constraint firstItem="tcu-4d-QV0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="e74-5J-Ont"/>
+                            <constraint firstItem="4lL-ji-Z6a" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="eXo-lz-e53"/>
                             <constraint firstAttribute="bottomMargin" secondItem="tcu-4d-QV0" secondAttribute="bottom" constant="-34" id="f8j-AF-tog"/>
                             <constraint firstItem="mJY-vV-8SS" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="rXU-BE-z67"/>
                         </constraints>

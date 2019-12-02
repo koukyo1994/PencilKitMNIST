@@ -25,16 +25,20 @@ def get_model() -> ks.Sequential:
     model = ks.Sequential()
     model.add(
         ks.layers.Conv2D(
-            32, kernel_size=(3, 3), activation="relu", input_shape=(28, 28,
+            16, kernel_size=(3, 3), activation="relu", input_shape=(28, 28,
                                                                     1)))
-    model.add(ks.layers.Conv2D(64, kernel_size=(3, 3), activation="relu"))
+    model.add(ks.layers.Conv2D(32, kernel_size=(3, 3), activation="relu"))
     model.add(ks.layers.MaxPooling2D(pool_size=(2, 2)))
     model.add(ks.layers.Dropout(0.25))
     model.add(ks.layers.Flatten())
     model.add(ks.layers.BatchNormalization())
-    model.add(ks.layers.Dense(128, activation="relu"))
+    model.add(ks.layers.Dense(64, activation="relu"))
     model.add(ks.layers.Dropout(0.3))
     model.add(ks.layers.Dense(10, activation="softmax"))
+    model.compile(
+        loss="categorical_crossentropy",
+        optimizer=ks.optimizers.Adam(),
+        metrics=["accuracy"])
     return model
 
 
@@ -69,17 +73,13 @@ if __name__ == "__main__":
 
     with timer(name="load model", log=True):
         model = get_model()
-        model.compile(
-            loss="categorical_crossentropy",
-            optimizer=ks.optimizers.Adam(),
-            metrics=["accuracy"])
 
     with timer(name="training", log=True):
         history = model.fit(
             train[0],
             train[1],
             batch_size=128,
-            epochs=3,
+            epochs=10,
             verbose=1,
             validation_data=valid)
 
