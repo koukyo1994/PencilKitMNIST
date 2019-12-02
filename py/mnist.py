@@ -1,8 +1,8 @@
 import logging
 
+import keras as ks
 import numpy as np
 import matplotlib.pyplot as plt
-import tensorflow.keras as ks
 
 from typing import Tuple
 from pathlib import Path

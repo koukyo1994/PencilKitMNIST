@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     class_labels = [str(i) for i in range(10)]
 
-    mlmodel = coremltools.converters.tensorflow.convert(
+    mlmodel = coremltools.converters.keras.convert(
         args.artifact,
         input_names="image",
         output_names="output",
