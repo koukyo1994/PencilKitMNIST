@@ -8,6 +8,7 @@
 
 import UIKit
 import PencilKit
+import CoreML
 
 class ViewController: UIViewController {
     
@@ -15,7 +16,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var resultImageView: UIImageView!
     
     static private let trainedImageSize = CGSize(width: 28, height: 28)
     
@@ -39,18 +39,7 @@ class ViewController: UIViewController {
         }
         
         textLabel.text = ""
-        view.addSubview(resultImageView)
     }
-    
-    @IBAction func convertViewIntoImageAndDisplay(_ sender: Any) {
-        var image = preprocessImage()
-        image = image.resize(newSize: resultImageView.frame.size)!
-        
-        DispatchQueue.main.async {
-            self.resultImageView.image = image
-        }
-    }
-    
     
     // ML Detection
     func preprocessImage() -> UIImage {
@@ -80,4 +69,16 @@ class ViewController: UIViewController {
         
         return image
     }
+    
+    func executePrediction(image: UIImage) {
+        if let resizedImage = image.resize(newSize: Self.trainedImageSize), let pixelBuffer = resizedImage.toCVPixelBuffer() {
+            guard let result = try? MNIST().prediction(image: pixelBuffer) else {
+                print("error in image")
+                return
+            }
+            
+            self.textLabel.text = "Predicted: \(result.output)"
+        }
+    }
+    
 }
