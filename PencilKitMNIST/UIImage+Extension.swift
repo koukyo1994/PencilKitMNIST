@@ -88,26 +88,42 @@ extension UIImage {
         
         let width = Int(self.size.width)
         let height = Int(self.size.height)
-        
         let status = CVPixelBufferCreate(
             kCFAllocatorDefault,
             Int(width),
             Int(height),
-            kCVPixelFormatType_OneComponent8)
+            kCVPixelFormatType_OneComponent8,
+            attr,
+            &pixelBuffer)
         
-        CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_OneComponent8, attr, &pixelBuffer)
-        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
-        
-        let colorSpace = CGColorSpaceCreateDeviceGray()
-        let bitmapContext = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer!), width: width, height: height, bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: colorSpace, bitmapInfo: 0)!
-        
-        guard let cgImage = self.cgImage else {
+        guard let resultPixelBuffer = pixelBuffer, status == kCVReturnSuccess else {
             return nil
         }
         
-        bitmapContext.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+        CVPixelBufferLockBaseAddress(resultPixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        let pixelData = CVPixelBufferGetBaseAddress(resultPixelBuffer)
         
-        return pixelBuffer
+        let grayColorSpace = CGColorSpaceCreateDeviceGray()
+        guard let context = CGContext(
+            data: pixelData,
+            width: Int(width),
+            height: Int(height),
+            bitsPerComponent: 8,
+            bytesPerRow: CVPixelBufferGetBytesPerRow(resultPixelBuffer),
+            space: grayColorSpace,
+            bitmapInfo: CGImageAlphaInfo.none.rawValue) else {
+                return nil
+        }
+        
+        context.translateBy(x: 0, y: CGFloat(Int(height)))
+        context.scaleBy(x: 1.0, y: -1.0)
+        
+        UIGraphicsPushContext(context)
+        self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+        UIGraphicsPopContext()
+        CVPixelBufferUnlockBaseAddress(resultPixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        
+        return resultPixelBuffer
     }
     
 }

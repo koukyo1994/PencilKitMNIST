@@ -51,6 +51,10 @@ def preprocess(train: DataPair, valid: DataPair,
     y_valid = ks.utils.to_categorical(valid[1], num_classes=10)
     y_test = ks.utils.to_categorical(test[1], num_classes=10)
 
+    x_train /= 255
+    x_valid /= 255
+    x_test /= 255
+
     return (x_train, y_train), (x_valid, y_valid), (x_test, y_test)
 
 
