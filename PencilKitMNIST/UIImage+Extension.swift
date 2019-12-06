@@ -89,6 +89,12 @@ extension UIImage {
         let width = Int(self.size.width)
         let height = Int(self.size.height)
         
+        let status = CVPixelBufferCreate(
+            kCFAllocatorDefault,
+            Int(width),
+            Int(height),
+            kCVPixelFormatType_OneComponent8)
+        
         CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_OneComponent8, attr, &pixelBuffer)
         CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
         

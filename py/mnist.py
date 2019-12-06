@@ -47,10 +47,6 @@ def preprocess(train: DataPair, valid: DataPair,
     x_valid = valid[0].reshape(len(valid[0]), 28, 28, 1).astype(np.float32)
     x_test = test[0].reshape(len(test[0]), 28, 28, 1).astype(np.float32)
 
-    x_train /= 255
-    x_valid /= 255
-    x_test /= 255
-
     y_train = ks.utils.to_categorical(train[1], num_classes=10)
     y_valid = ks.utils.to_categorical(valid[1], num_classes=10)
     y_test = ks.utils.to_categorical(test[1], num_classes=10)
