@@ -9,6 +9,7 @@
 import UIKit
 import PencilKit
 import CoreML
+import Vision
 
 class ViewController: UIViewController {
     
@@ -42,11 +43,37 @@ class ViewController: UIViewController {
 
     }
     
+    lazy var classificationRequest: VNCoreMLRequest = {
+        do {
+            let model = try VNCoreMLModel(for: MNISTClassifier().model)
+            return VNCoreMLRequest(
+                model: model,
+                completionHandler: self.handleClassification)
+        } catch {
+            fatalError("can't load Vision ML model: \(error)")
+        }
+    }()
+    
+    func handleClassification(request: VNRequest, error: Error?) {
+        guard let observations = request.results as? [VNClassificationObservation]
+            else { fatalError("unexpected result type from VNCoreMLRequest") }
+        guard let best = observations.first else {
+            fatalError("can't get best result")
+        }
+        print("\(observations)")
+        DispatchQueue.main.async {
+            self.textLabel.text = "Predicted: \(best.identifier) Confidence: \(best.confidence)"
+        }
+    }
+    
     @IBAction func predict(_ sender: Any) {
         let image = preprocessImage()
         
-        DispatchQueue.main.async {
-            self.executePrediction(image: image)
+        let handler = VNImageRequestHandler(ciImage: CIImage(image: image)!)
+        do {
+             try handler.perform([classificationRequest])
+        } catch {
+             print(error)
         }
     }
     
@@ -78,27 +105,4 @@ class ViewController: UIViewController {
         
         return image
     }
-    
-    func executePrediction(image: UIImage) {
-        if let resizedImage = image.resize(newSize: Self.trainedImageSize), let pixelBuffer = resizedImage.toCVPixelBuffer(){
-            // UIImageWriteToSavedPhotosAlbum(resizedImage, nil, nil, nil)
-            guard let result = try? MNIST().prediction(image: pixelBuffer) else {
-                print("error in image")
-                return
-            }
-            
-            var mostProbable: String = ""
-            var highestProbability: Double = 0.0
-            
-            for klass in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] {
-                if result.output[klass]! > highestProbability {
-                    highestProbability = result.output[klass]!
-                    mostProbable = klass
-                }
-            }
-            print(result.output)
-            self.textLabel.text = "Predicted: \(mostProbable), Probability: \(String(format: "%.4f", highestProbability))"
-        }
-    }
-    
 }

@@ -15,6 +15,7 @@
 		EC1E452023942A4F009CB1FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1E451F23942A4F009CB1FF /* Assets.xcassets */; };
 		EC1E452323942A4F009CB1FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1E452123942A4F009CB1FF /* LaunchScreen.storyboard */; };
 		EC1E452B23943146009CB1FF /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1E452A23943146009CB1FF /* UIImage+Extension.swift */; };
+		ECC0B23A23A2E3B900D970B8 /* MNISTClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = ECC0B23923A2E3B900D970B8 /* MNISTClassifier.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		EC1E452223942A4F009CB1FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC1E452423942A4F009CB1FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC1E452A23943146009CB1FF /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		ECC0B23923A2E3B900D970B8 /* MNISTClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MNISTClassifier.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				EC1E452A23943146009CB1FF /* UIImage+Extension.swift */,
 				EC1E451F23942A4F009CB1FF /* Assets.xcassets */,
 				EC0547F823956CE700F5501F /* MNIST.mlmodel */,
+				ECC0B23923A2E3B900D970B8 /* MNISTClassifier.mlmodel */,
 				EC1E452123942A4F009CB1FF /* LaunchScreen.storyboard */,
 				EC1E452423942A4F009CB1FF /* Info.plist */,
 			);
@@ -149,6 +152,7 @@
 				EC1E451923942A4E009CB1FF /* SceneDelegate.swift in Sources */,
 				EC0547F923956CE700F5501F /* MNIST.mlmodel in Sources */,
 				EC1E452B23943146009CB1FF /* UIImage+Extension.swift in Sources */,
+				ECC0B23A23A2E3B900D970B8 /* MNISTClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
